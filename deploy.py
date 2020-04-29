@@ -31,7 +31,7 @@ def decantador():
     
     return resposta
 
-@app.route('/decantadorGet', method=['GET'])
+@app.route('/decantador', method=['GET'])
 def decantadorGet():
     global solucao
     global etoh
