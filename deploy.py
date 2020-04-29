@@ -57,7 +57,7 @@ class Decantador(threading.Thread):
                 pedido = {
                 'volume': 50
                     }
-                response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
+                #response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
 
                 solucao += (pedido['volume'])
                 
@@ -74,7 +74,7 @@ class Decantador(threading.Thread):
                     
                     solucao -= 100
                     
-                    #requests.post("",json=requestEtoh, headers={"Content-Type:" "application/json"})
+                    requests.post("https://concorrente.herokuapp.com/tanque_EtOH",json=requestEtoh, headers={"Content-Type:" "application/json"})
                     
                     #requests.post("",json=requestGlicerina, headers={"Content-Type:" "application/json"})
                     #requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
