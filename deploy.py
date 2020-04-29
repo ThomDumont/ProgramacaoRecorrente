@@ -6,55 +6,46 @@ import threading
 
 app = Flask(__name__)
 
+
 solucao = 0
-etoh = 0
-glicerina = 0
-solucaoLavagem = 0
+decantador = {
+    'etoh': 0,
+    'glicerina': 0,
+    'solucaoLavagem':0
+}
+
 
 @app.route('/', methods=['POST'])
 def decantadorPost():
     global solucao
-    global etoh
-    global glicerina
-    global solucaoLavagem
-    dados = request.get_json()
+    dados = request.get_json(force=True)
+    
+    dados={'volume':50}
     
     solucao += (dados['volume'])
     
-    etoh = solucao * 0.02
-    glicerina = solucao * 0.08
-    solucaoLavagem = solucao * 0.90
+    decantador[etoh] = solucao * 0.02
+    decantador[glicerina] = solucao * 0.08
+    decantador[solucaoLavagem] = solucao * 0.90
     
     resposta = {
-            'etoh': etoh,
-            'glicerina': glicerina,
-            'solucaoLavagem': solucaoLavagem,
+            'etoh': decantador.etoh,
+            'glicerina': decantador.glicerina,
+            'solucaoLavagem': decantador.solucaoLavagem,
             'total': solucao
             }
     
     return resposta
 
+
 @app.route('/', methods=['GET'])
 def decantadorGet():
-    global solucao
-    global etoh
-    global glicerina
-    global solucaoLavagem
-    dados = request.get_json()
-    
-    solucao += dados['volume']
-    etoh = (dados['volume']) * 0.02
-    glicerina = (dados['volume']) * 0.08
-    solucaoLavagem = (dados['volume']) * 0.90
-    
+    global decantador
     resposta = {
-            'etoh': etoh,
-            'glicerina': glicerina,
-            'solucaoLavagem': solucaoLavagem,
-            'total': solucao
+            'decantador': decantador
             }
-    
     return resposta
+
 
 class Decantador(threading.Thread):
     def __init__(self):
@@ -63,15 +54,15 @@ class Decantador(threading.Thread):
     def run(self):
         while True:
             if(solucao != 500):
-                solucao += 50
+
                # pedido = {
                #    'volume': 50
                #    }
                # response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
 
                # solucao += (response['volume'])
+               
                 print('insert do paulo')
-            
             if(solucao == 500):
                 while(solucao > 0):
                     time.sleep(5)
