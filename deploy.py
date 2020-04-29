@@ -40,7 +40,9 @@ class Decantador(threading.Thread):
                 pedido = {
                   'volume': 50
                   }
+                
                 response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
+                
                 if (response.get('status_code', None) == 200):
                     atualizaVolumes(pedido['volume'])
                 #atualizaVolumes(pedido['volume'])    
