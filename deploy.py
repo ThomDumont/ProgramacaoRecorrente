@@ -1,8 +1,8 @@
+import requests
 from flask import Flask, request
 import time
-import json
 import threading
-import requests
+
 
 app = Flask(__name__)
 
@@ -22,8 +22,6 @@ def decantadorPost():
     etoh = solucao * 0.02
     glicerina = solucao * 0.08
     solucaoLavagem = solucaoLavagem * 0.90
-    
-    
     
     resposta = {
             'etoh': etoh,
@@ -58,7 +56,7 @@ class Decantador(threading.Thread):
             if(solucao != 500):
                 pedido = {
                 'volume': 50
-                }
+                    }
                 response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
 
                 solucao += (response['volume'])
