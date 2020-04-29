@@ -20,9 +20,7 @@ def decantadorPost():
     dados = request.get_json()
     
         
-    etoh = solucao * 0.02
-    glicerina = solucao * 0.08
-    solucaoLavagem = solucaoLavagem * 0.90
+ 
     
     resposta = {
             'etoh': etoh,
@@ -43,6 +41,10 @@ def decantadorGet():
     while(solucao != 500):
         time.sleep(1)
         solucao += 50
+    
+    etoh = solucao * 0.02
+    glicerina = solucao * 0.08
+    solucaoLavagem = solucaoLavagem * 0.90
     
     resposta = {
             'etoh': etoh,
