@@ -76,9 +76,9 @@ class Decantador(threading.Thread):
                     
                     solucao -= 100
                     
-                    reqGlicerina = requests.post("",json=requestGlicerina, headers={"Content-Type:" "application/json"})
-                    reqEtoh = requests.post("",json=requestEtoh, headers={"Content-Type:" "application/json"})
-                    reqSolLav = requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
+                    #reqGlicerina = requests.post("",json=requestGlicerina, headers={"Content-Type:" "application/json"})
+                    #reqEtoh = requests.post("",json=requestEtoh, headers={"Content-Type:" "application/json"})
+                    #reqSolLav = requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
 
 def create_app():
     global app
