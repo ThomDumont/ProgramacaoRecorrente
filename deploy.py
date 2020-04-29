@@ -7,31 +7,13 @@ app = Flask(__name__)
 
 
 solucao = 0
+
 decantador = {
-    'etoh': 0,
-    'glicerina': 0,
-    'solucaoLavagem':0,
-    'total':0
+    'etoh': decantador['SolucaoTotal'] * 0.02,
+    'glicerina': decantador['SolucaoTotal'] * 0.08,
+    'solucaoLavagem':decantador['SolucaoTotal'] * 0.9,
+    'SolucaoTotal': 0
 }
-
-
-@app.route('/', methods=['POST'])
-def decantadorPost():
-    dados = request.get_json(force=True)
-    
-    decantador['etoh'] = decantador['solucao'] * 0.02
-    decantador['glicerina'] = decantador['solucao'] * 0.08
-    decantador['solucaoLavagem'] = decantador['solucao'] * 0.90
-    
-    resposta = {
-            'etoh': decantador.etoh,
-            'glicerina': decantador.glicerina,
-            'solucaoLavagem': decantador.solucaoLavagem,
-            'total': decantador[solucao]
-            }
-    
-    return resposta
-
 
 @app.route('/', methods=['GET'])
 def decantadorGet():
@@ -48,29 +30,30 @@ class Decantador(threading.Thread):
 
     def run(self):
         while True:
-            if(decantador['solucao'] != 500):
-                time.sleep(5)
+            if(decantador['solucao'] < 500):
                 pedido = {
-                  'volume': 100
+                  'volume': 50
                   }
                 
                 #response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
-
-                decantador['solucao'] += pedido['volume']
+                decantador['SolucaoTotal'] += pedido['volume']
                
                 
-            if(decantador['solucao'] == 500):
-                while(decantador['solucao'] > 0):
+            if(decantador['SolucaoTotal'] == 500):
+                while(decantador['SolucaoTotal'] > 0):
                     time.sleep(5)
-                    decantador['glicerina'] = 100 * 0.02
-                    decantador['etoh'] = 100 * 0.08
-                    decantador['solucaoLavagem'] = 100 * 0.9
+                    glicerina = 100 * 0.02
+                    decantador['glicerina'] -= glicerina
+                    etoh = 100 * 0.08
+                    decantador['etoh'] -= etoh
+                    solucaoLavagem = 100 * 0.9
+                    decantador['solucaoLavagem'] -= solucaoLavagem
                     
-                    requestGlicerina = {'glicerina': decantador.glicerina}
-                    requestEtoh={'etoh': decantador.etoh}
-                    requestSolLav={'solucaoLavagem': decantador.solucaoLavagem}
+                    requestGlicerina = {'glicerina': glicerina}
+                    requestEtoh={'etoh': etoh}
+                    requestSolLav={'solucaoLavagem': solucaoLavagem}
                     
-                    decantador['solucao'] -= 100
+                    decantador['SolucaoTotal'] -= 100
                     
                     requests.post("https://concorrente.herokuapp.com/tanque_EtOH",json=requestEtoh, headers={"Content-Type:" "application/json"})
                     
