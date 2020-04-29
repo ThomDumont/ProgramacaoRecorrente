@@ -6,22 +6,6 @@ import requests
 
 app = Flask(__name__)
 
-#----------------------------------------------------------------------------
-#-------------------Dados-Decantador-----------------------------------------
-#maximo de litros 500
-#a cada 2 lancamentos o decantador para
-#precisa repousar a cada 100 litros lancados por 5segundos
-#----------------------------------------------------------------------------
-#------------------Dados de Saida--------------------------------------------
-#90% de solucao para lavagem
-#2% de glicerina
-#8% de EtOH
-#-----------------------------------------------------------------------------
-#-----------------Dados de entrada do outro módulo----------------------------
-#solucao: 1 parte de NaOH, 4 partes de EtOH e 100 partes de oleo
-#-----------------------------------------------------------------------------
-
-#Tela apresentada
 solucao = 0
 etoh = 0
 glicerina = 0
@@ -48,8 +32,6 @@ def decantadorPost():
             }
     
     return resposta
-
-#aqui a gente pega os valores do módulo anterior Reator
 
 @app.route('/decantadorGet', method=['GET'])
 def decantadorGet():
