@@ -19,6 +19,12 @@ def decantadorPost():
     global solucaoLavagem
     dados = request.get_json()
     
+    solucao += (dados['volume'])
+    
+    etoh = solucao * 0.02
+    glicerina = solucao * 0.08
+    solucaoLavagem = solucao * 0.90
+    
     resposta = {
             'etoh': etoh,
             'glicerina': glicerina,
@@ -35,10 +41,13 @@ def decantadorGet():
     global glicerina
     global solucaoLavagem
     dados = request.get_json()
-    
-    etoh = solucao * 0.02
-    glicerina = solucao * 0.08
-    solucaoLavagem = solucao * 0.90
+    dados = {
+        'volume': 50
+    }
+    solucao += dados['volume']
+    etoh = (dados['volume']) * 0.02
+    glicerina = (dados['volume']) * 0.08
+    solucaoLavagem = (dados['volume']) * 0.90
     
     resposta = {
             'etoh': etoh,
@@ -56,7 +65,6 @@ class Decantador(threading.Thread):
     def run(self):
         while True:
             if(solucao != 500):
-                time.sleep(1)
                 solucao += 50
                # pedido = {
                #    'volume': 50
