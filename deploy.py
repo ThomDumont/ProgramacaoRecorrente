@@ -59,7 +59,7 @@ class Decantador(threading.Thread):
                     }
                 response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
 
-                solucao += (response['volume'])
+                solucao += (pedido['volume'])
                 
             if(solucao == 500):
                 while(solucao > 0):
@@ -74,9 +74,10 @@ class Decantador(threading.Thread):
                     
                     solucao -= 100
                     
-                    reqGlicerina = requests.post("",json=requestGlicerina, headers={"Content-Type:" "application/json"})
-                    #reqEtoh = requests.post("",json=requestEtoh, headers={"Content-Type:" "application/json"})
-                    #reqSolLav = requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
+                    #requests.post("",json=requestEtoh, headers={"Content-Type:" "application/json"})
+                    
+                    #requests.post("",json=requestGlicerina, headers={"Content-Type:" "application/json"})
+                    #requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
 
 def create_app():
     global app
