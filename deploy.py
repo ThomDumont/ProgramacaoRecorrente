@@ -55,13 +55,15 @@ class Decantador(threading.Thread):
     def run(self):
         while True:
             if(solucao != 500):
-                pedido = {
-                'volume': 50
-                    }
-                response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
+                time.sleep(1)
+                #pedido = {
+                #   'volume': 50
+                #   }
+                #response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
 
-                solucao += (pedido['volume'])
+                solucao += 50 #solucao += (response['volume'])
                 
+            
             if(solucao == 500):
                 while(solucao > 0):
                     time.sleep(5)
@@ -77,9 +79,10 @@ class Decantador(threading.Thread):
                     
                     requests.post("https://concorrente.herokuapp.com/tanque_EtOH",json=requestEtoh, headers={"Content-Type:" "application/json"})
                     
-                    requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type:" "application/json"})
+                    #requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type:" "application/json"})
                     
                     #requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
+                    #milos
                     
                     return requestGlicerina, requestEtoh, requestSolLav
 
