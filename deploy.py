@@ -12,7 +12,7 @@ glicerina = 0
 solucaoLavagem = 0
 
 @app.route('/decantador', method=['POST'])
-def decantadorPost():
+def decantador():
     global solucao
     global etoh
     global glicerina
