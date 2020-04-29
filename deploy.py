@@ -39,6 +39,8 @@ def decantadorPost():
     glicerina = solucao * 0.08
     solucaoLavagem = solucaoLavagem * 0.90
     
+    
+    
     resposta = {
             'etoh': etoh,
             'glicerina': glicerina,
