@@ -11,28 +11,29 @@ solucao = 0
 decantador = {
     'etoh': 0,
     'glicerina': 0,
-    'solucaoLavagem':0
+    'solucaoLavagem':0,
+    'solucao':0
 }
 
 
 @app.route('/', methods=['POST'])
 def decantadorPost():
-    global solucao
+   
     dados = request.get_json(force=True)
     
     dados={'volume':50}
     
-    solucao += (dados['volume'])
+    decantador[solucao] += (dados['volume'])
     
-    decantador[etoh] = solucao * 0.02
-    decantador[glicerina] = solucao * 0.08
-    decantador[solucaoLavagem] = solucao * 0.90
+    decantador[etoh] = decantador[solucao] * 0.02
+    decantador[glicerina] = decantador[solucao] * 0.08
+    decantador[solucaoLavagem] = decantador[solucao] * 0.90
     
     resposta = {
             'etoh': decantador.etoh,
             'glicerina': decantador.glicerina,
             'solucaoLavagem': decantador.solucaoLavagem,
-            'total': solucao
+            'total': decantador[solucao]
             }
     
     return resposta
@@ -53,7 +54,7 @@ class Decantador(threading.Thread):
 
     def run(self):
         while True:
-            if(solucao != 500):
+            if(decantador[solucao] != 500):
 
                # pedido = {
                #    'volume': 50
@@ -63,8 +64,8 @@ class Decantador(threading.Thread):
                # solucao += (response['volume'])
                
                 print('insert do paulo')
-            if(solucao == 500):
-                while(solucao > 0):
+            if(decantador[solucao] == 500):
+                while(decantador[solucao] > 0):
                     time.sleep(5)
                     glicerina = 100 * 0.02
                     etoh = 100 * 0.08
