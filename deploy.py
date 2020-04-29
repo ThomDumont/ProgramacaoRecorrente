@@ -11,7 +11,7 @@ etoh = 0
 glicerina = 0
 solucaoLavagem = 0
 
-@app.route('/decantador', methods=['POST'])
+@app.route('/', methods=['POST'])
 def decantadorPost():
     global solucao
     global etoh
@@ -31,7 +31,7 @@ def decantadorPost():
     
     return resposta
 
-@app.route('/decantador', methods=['GET'])
+@app.route('/', methods=['GET'])
 def decantadorGet():
     global solucao
     global etoh
