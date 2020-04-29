@@ -36,11 +36,10 @@ class Decantador(threading.Thread):
 
     def run(self):
         while True:
-            if(decantador['solucao'] < 500):
+            if(decantador['SolucaoTotal'] < 500):
                 pedido = {
                   'volume': 50
                   }
-                
                 #response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
                 #if (response.get('status_code', None) == 200):
                 #    atualizaVolumes(pedido['volume'])
@@ -73,7 +72,6 @@ class Decantador(threading.Thread):
 
 def create_app():
     global app
-    print(Decantador)
     iniciar = Decantador()
     iniciar.start()
     return app
