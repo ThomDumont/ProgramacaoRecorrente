@@ -34,11 +34,7 @@ def decantadorGet():
     global etoh
     global glicerina
     global solucaoLavagem
-    #dados = request.get_json()
-    
-    while(solucao != 500):
-        time.sleep(1)
-        solucao += 50
+    dados = request.get_json()
     
     etoh = solucao * 0.02
     glicerina = solucao * 0.08
@@ -61,14 +57,14 @@ class Decantador(threading.Thread):
         while True:
             if(solucao != 500):
                 time.sleep(1)
-                solucao += 50 
+                solucao += 50
                # pedido = {
                #    'volume': 50
                #    }
                # response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
 
                # solucao += (response['volume'])
-                
+                print('insert do paulo')
             
             if(solucao == 500):
                 while(solucao > 0):
