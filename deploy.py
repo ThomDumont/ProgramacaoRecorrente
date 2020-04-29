@@ -11,8 +11,8 @@ etoh = 0
 glicerina = 0
 solucaoLavagem = 0
 
-@app.route('/decantador', method=['POST'])
-def decantador():
+@app.route('/decantador', methods=['POST'])
+def decantadorPost():
     global solucao
     global etoh
     global glicerina
@@ -31,7 +31,7 @@ def decantador():
     
     return resposta
 
-@app.route('/decantador', method=['GET'])
+@app.route('/decantador', methods=['GET'])
 def decantadorGet():
     global solucao
     global etoh
@@ -74,11 +74,12 @@ class Decantador(threading.Thread):
                     
                     solucao -= 100
                     
-                    requests.post("https://concorrente.herokuapp.com/tanque_EtOH",json=requestEtoh, headers={"Content-Type:" "application/json"})
+                    
+                    #requests.post("https://concorrente.herokuapp.com/tanque_EtOH",json=requestEtoh, headers={"Content-Type:" "application/json"})
                     
                     #requests.post("",json=requestGlicerina, headers={"Content-Type:" "application/json"})
                     #requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
-
+                    return requestGlicerina, requestEtoh, requestSolLav
 def create_app():
     global app
     iniciar = Decantador()
