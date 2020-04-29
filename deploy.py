@@ -19,9 +19,6 @@ def decantadorPost():
     global solucaoLavagem
     dados = request.get_json()
     
-        
- 
-    
     resposta = {
             'etoh': etoh,
             'glicerina': glicerina,
