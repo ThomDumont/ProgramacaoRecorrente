@@ -26,8 +26,7 @@ def decantadorPost():
     resposta = {
             'etoh': etoh,
             'glicerina': glicerina,
-            'solucaoDeLavagem': solucaoLavagem,
-            'total':solucao
+            'solucao': solucaoLavagem
             }
     
     return resposta
@@ -43,7 +42,8 @@ def decantadorGet():
     resposta = {
             'etoh': etoh,
             'glicerina': glicerina,
-            'solucao': solucaoLavagem
+            'solucaoLavagem': solucaoLavagem,
+            'total': solucao
             }
     
     return resposta
@@ -75,11 +75,12 @@ class Decantador(threading.Thread):
                     
                     solucao -= 100
                     
-                    
                     requests.post("https://concorrente.herokuapp.com/tanque_EtOH",json=requestEtoh, headers={"Content-Type:" "application/json"})
                     
-                    #requests.post("",json=requestGlicerina, headers={"Content-Type:" "application/json"})
+                    requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type:" "application/json"})
+                    
                     #requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
+                    
                     return requestGlicerina, requestEtoh, requestSolLav
 
 def create_app():
