@@ -41,9 +41,7 @@ def decantadorGet():
     global glicerina
     global solucaoLavagem
     dados = request.get_json()
-    dados = {
-        'volume': 50
-    }
+    
     solucao += dados['volume']
     etoh = (dados['volume']) * 0.02
     glicerina = (dados['volume']) * 0.08
@@ -98,6 +96,7 @@ class Decantador(threading.Thread):
 
 def create_app():
     global app
+    print(Decantador)
     iniciar = Decantador()
     iniciar.start()
     return app
