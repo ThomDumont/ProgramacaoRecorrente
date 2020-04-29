@@ -9,12 +9,18 @@ app = Flask(__name__)
 solucao = 0
 
 decantador = {
-    'etoh': decantador['SolucaoTotal'] * 0.02,
-    'glicerina': decantador['SolucaoTotal'] * 0.08,
-    'solucaoLavagem':decantador['SolucaoTotal'] * 0.9,
+    'etoh':  0,
+    'glicerina': 0,
+    'solucaoLavagem':0,
     'SolucaoTotal': 0
 }
 
+def atualizaVolumes(volume):
+    decantador['etoh'] += volume * 0.02
+    decantador['glicerina'] += volume * 0.08
+    decantador['solucaoLavagem'] += volume * 0.9
+    decantador['SolucaoTotal'] += volume
+    
 @app.route('/', methods=['GET'])
 def decantadorGet():
     global decantador
@@ -36,8 +42,9 @@ class Decantador(threading.Thread):
                   }
                 
                 #response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
-                decantador['SolucaoTotal'] += pedido['volume']
-               
+                #if (response.get('status_code', None) == 200):
+                #    atualizaVolumes(pedido['volume'])
+                atualizaVolumes(pedido['volume'])    
                 
             if(decantador['SolucaoTotal'] == 500):
                 while(decantador['SolucaoTotal'] > 0):
