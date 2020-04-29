@@ -11,15 +11,15 @@ solucao = 0
 decantador = {
     'etoh':  0,
     'glicerina': 0,
-    'solucaoLavagem':0,
-    'SolucaoTotal': 0
+    'solucaolavagem':0,
+    'solucaototal': 0
 }
 
 def atualizaVolumes(volume):
-    decantador['etoh'] += volume * 0.02
-    decantador['glicerina'] += volume * 0.08
-    decantador['solucaoLavagem'] += volume * 0.9
-    decantador['SolucaoTotal'] += volume
+    decantador['glicerina'] += volume * 0.02
+    decantador['etoh'] += volume * 0.08 
+    decantador['solucaolavagem'] += volume * 0.9
+    decantador['solucaototal'] += volume
     
 @app.route('/', methods=['GET'])
 def decantadorGet():
@@ -36,45 +36,49 @@ class Decantador(threading.Thread):
 
     def run(self):
         while True:
-            if(decantador['SolucaoTotal'] < 500):
+            if(decantador['solucaototal'] < 500):
                 pedido = {
                   'volume': 50
                   }
-                #response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
-                #if (response.get('status_code', None) == 200):
-                #    atualizaVolumes(pedido['volume'])
-                atualizaVolumes(pedido['volume'])    
+                response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
+                if (response.get('status_code', None) == 200):
+                    atualizaVolumes(pedido['volume'])
+                #atualizaVolumes(pedido['volume'])    
                 
-            if(decantador['SolucaoTotal'] == 500):
-                while(decantador['SolucaoTotal'] > 0):
+            if(decantador['solucaototal'] == 500):
+                while(decantador['solucaototal'] > 0):
+                    
                     time.sleep(5)
+                    
                     glicerina = 100 * 0.02
                     decantador['glicerina'] -= glicerina
+                    
                     etoh = 100 * 0.08
                     decantador['etoh'] -= etoh
+                    
                     solucaoLavagem = 100 * 0.9
-                    decantador['solucaoLavagem'] -= solucaoLavagem
+                    decantador['solucaolavagem'] -= solucaoLavagem
                     
                     requestGlicerina = {'glicerina': glicerina}
-                    requestEtoh={'etoh': etoh}
-                    requestSolLav={'solucaoLavagem': solucaoLavagem}
+                    requestEtoh={"etoh": etoh}
+                    requestSolLav={'solucaolavagem': solucaoLavagem}
                     
-                    decantador['SolucaoTotal'] -= 100
+                    decantador['solucaototal'] -= 100
                     
-                    requests.post("https://concorrente.herokuapp.com/tanque_EtOH",json=requestEtoh, headers={"Content-Type:" "application/json"})
+                    requests.post("http://concorrente.herokuapp.com/tanque_EtOH",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                     
-                    #requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type:" "application/json"})
+                    requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
                     
-                    #requests.post("",json=requestSolLav, headers={"Content-Type:" "application/json"})
-                    #milos
+                    #requests.post("#milos",json=requestSolLav, headers={"Content-Type": "application/json"}).json()
                     
-                    return requestGlicerina, requestEtoh, requestSolLav
 
 def create_app():
     global app
-    iniciar = Decantador()
-    iniciar.start()
+    decantadorThread = Decantador()
+    decantadorThread.start()
     return app
 
-#if __name__ == '__main__':
-#    app.run()
+if __name__ == '__main__':
+    decantadorThread = Decantador()
+    decantadorThread.start()
+    app.run()
