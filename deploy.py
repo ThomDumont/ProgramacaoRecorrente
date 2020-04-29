@@ -80,7 +80,7 @@ def create_app():
     decantadorThread.start()
     return app
 
-if __name__ == '__main__':
-    decantadorThread = Decantador()
-    decantadorThread.start()
-    app.run()
+#if __name__ == '__main__':
+#    decantadorThread = Decantador()
+#    decantadorThread.start()
+#    app.run()
