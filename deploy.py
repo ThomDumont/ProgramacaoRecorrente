@@ -11,17 +11,13 @@ decantador = {
     'etoh': 0,
     'glicerina': 0,
     'solucaoLavagem':0,
-    'solucao':0
+    'total':0
 }
 
 
 @app.route('/', methods=['POST'])
 def decantadorPost():
     dados = request.get_json(force=True)
-    
-    while(decantador.solucao != 500):
-        time.sleep(10)
-        decantador.solucao += 10
     
     decantador['etoh'] = decantador['solucao'] * 0.02
     decantador['glicerina'] = decantador['solucao'] * 0.08
