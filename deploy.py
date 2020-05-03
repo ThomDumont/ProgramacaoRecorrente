@@ -37,11 +37,13 @@ class Decantador(threading.Thread):
     def run(self):
         while True:
             if(decantador['solucaototal'] < 500):
+                time.sleep(1)
+                
                 pedido = {
-                  'volume': 50
+                  "volume": 50
                   }
                 
-                response = requests.post(url='https://reator-url.herokuapp.com/reator', json=pedido, headers={"Content_Type": "application/json"}).json()
+                response = requests.post("https://reator-url.herokuapp.com/reator", json=pedido, headers={"Content_Type": "application/json"}).json()
                 
                 if (response.get('status_code', None) == 200):
                     atualizaVolumes(pedido['volume'])
@@ -71,16 +73,16 @@ class Decantador(threading.Thread):
                     
                     requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
                     
-                    #requests.post("#milos",json=requestSolLav, headers={"Content-Type": "application/json"}).json()
+                    #requests.post("", json=pedido, headers={"Content_Type": "application/json"}).json()
                     
 
-def create_app():
-    global app
-    decantadorThread = Decantador()
-    decantadorThread.start()
-    return app
-
-#if __name__ == '__main__':
+#def create_app():
+#    global app
 #    decantadorThread = Decantador()
 #    decantadorThread.start()
-#    app.run()
+#    return app
+
+if __name__ == '__main__':
+    decantadorThread = Decantador()
+    decantadorThread.start()
+    app.run()
