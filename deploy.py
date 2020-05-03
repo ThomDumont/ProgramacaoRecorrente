@@ -83,16 +83,16 @@ class Decantador(threading.Thread):
                     requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
                     
                     
-                    requests.post("https://sistemas-distribuido.herokuapp.com/", json=solucaoLavagem, headers={"Content_Type": "application/json"}).json()
+                    requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=solucaoLavagem, headers={"Content_Type": "application/json"}).json()
                     
 
-def create_app():
-    global app
-    decantadorThread = Decantador()
-    decantadorThread.start()
-    return app
+#def create_app():
+#    global app
+#    decantadorThread = Decantador()
+#    decantadorThread.start()
+#    return app
 
-#if __name__ == '__main__':
-#   decantadorThread = Decantador()
-#   decantadorThread.start()
-#   app.run() 
+if __name__ == '__main__':
+   decantadorThread = Decantador()
+   decantadorThread.start()
+   app.run() 
