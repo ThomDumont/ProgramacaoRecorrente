@@ -63,13 +63,13 @@ class Decantador(threading.Thread):
                     solucaoLavagem = 100 * 0.9
                     decantador['solucaolavagem'] -= solucaoLavagem
                     
-                    requestGlicerina = {'glicerina': glicerina}
                     requestEtoh={"etoh": etoh}
+                    requestGlicerina = {'glicerina': glicerina}
                     requestSolLav={'solucaolavagem': solucaoLavagem}
                     
                     decantador['solucaototal'] -= 100
                     
-                    requests.post("http://concorrente-tanque_EtOH.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
+                    requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                     
                     requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
                     
