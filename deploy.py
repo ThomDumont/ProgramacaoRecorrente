@@ -74,6 +74,7 @@ class Decantador(threading.Thread):
                     
                     #requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=solucaoLavagem, headers={"Content_Type": "application/json"}).json()
 
+                    return decantador['glicerina'], decantador['etoh'], decantador['solucaolavagem'], decantador['solucaototal']
 def create_app():
     global app
     decantadorThread = Decantador()
