@@ -62,26 +62,27 @@ class Decantador(threading.Thread):
                     decantador['solucaolavagem'] = decantador['solucaolavagem'] - solucaoLavagem
                     
                     requestEtoh={'etoh': etoh}
-                    requestGlicerina = {'glicerina': glicerina}
+                    requestGlicerina = {"glicerina": glicerina}
                     requestSolLav={'solucaolavagem': solucaoLavagem}
-                    
                     
                     decantador['solucaototal'] = decantador['solucaototal'] - 100
                     
-                    requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
-                        
-                    requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
-                    
                     requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=requestSolLav, headers={"Content_Type": "application/json"}).json()
                     
+                    requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
+                        
+                    req = requests.post("https://tanque-glicerina.herokuapp.com/glicerina", json=requestGlicerina, headers={"Content-Type": "application/json"})
                     
-def create_app():
-    global app
-    decantadorThread = Decantador()
-    decantadorThread.start()
-    return app
+                    
+                    
+                    
+#def create_app():
+#    global app
+#    decantadorThread = Decantador()
+#    decantadorThread.start()
+#    return app
 
-#if __name__ == '__main__':
-#   decantadorThread = Decantador()
-#   decantadorThread.start()
-#   app.run() 
+if __name__ == '__main__':
+   decantadorThread = Decantador()
+   decantadorThread.start()
+   app.run() 
