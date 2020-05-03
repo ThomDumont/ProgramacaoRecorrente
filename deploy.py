@@ -9,10 +9,10 @@ app = Flask(__name__)
 solucao = 0
 
 decantador = {
-    'etoh':  0,
-    'glicerina': 0,
-    'solucaolavagem':0,
-    'solucaototal': 0
+    'etoh':  0.0,
+    'glicerina': 0.0,
+    'solucaolavagem':0.0,
+    'solucaototal': 0.0
 }
 
 def atualizaVolumes(volume):
@@ -67,13 +67,15 @@ class Decantador(threading.Thread):
                     
                     
                     decantador['solucaototal'] = decantador['solucaototal'] - 100
-                
+
+                    
                     requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                         
                     requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
                     
-                    #requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=solucaoLavagem, headers={"Content_Type": "application/json"}).json()
+                    requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=solucaoLavagem, headers={"Content_Type": "application/json"}).json()
 
+                    atualizaVolumes(pedido['volume'])
 def create_app():
     global app
     decantadorThread = Decantador()
