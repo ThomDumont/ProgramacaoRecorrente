@@ -36,7 +36,7 @@ class Decantador(threading.Thread):
 
     def run(self):
         while True:
-            if(decantador['solucaototal'] == 0):
+            if(decantador['solucaototal'] < 500):
                 time.sleep(1)
                 
                 pedido = {
@@ -54,7 +54,6 @@ class Decantador(threading.Thread):
                     atualizaVolumes(pedido['volume'])
                     
                     time.sleep(5)
-                    
                     glicerina = 100 * 0.02
                     decantador['glicerina'] = decantador['glicerina'] - glicerina
                     
