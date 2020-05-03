@@ -9,10 +9,10 @@ app = Flask(__name__)
 solucao = 0
 
 decantador = {
-    'etoh':  0.0,
-    'glicerina': 0.0,
-    'solucaolavagem':0.0,
-    'solucaototal': 0.0
+    'etoh':  0,
+    'glicerina': 0,
+    'solucaolavagem':0,
+    'solucaototal': 0
 }
 
 def atualizaVolumes(volume):
