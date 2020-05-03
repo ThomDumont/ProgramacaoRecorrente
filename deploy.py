@@ -76,13 +76,13 @@ class Decantador(threading.Thread):
                     #requests.post("", json=pedido, headers={"Content_Type": "application/json"}).json()
                     
 
-#def create_app():
-#    global app
-#    decantadorThread = Decantador()
-#    decantadorThread.start()
-#    return app
-
-if __name__ == '__main__':
+def create_app():
+    global app
     decantadorThread = Decantador()
     decantadorThread.start()
-    app.run()
+    return app
+
+#if __name__ == '__main__':
+#   decantadorThread = Decantador()
+#   decantadorThread.start()
+#   app.run()
