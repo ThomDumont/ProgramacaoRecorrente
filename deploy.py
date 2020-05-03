@@ -67,7 +67,7 @@ class Decantador(threading.Thread):
                     
                     
                     decantador['solucaototal'] = decantador['solucaototal'] - 100
-                    atualizaVolumes(decantador['solucaolavagem'])
+                    atualizaVolumes(decantador['solucaototal'])
                     
                     requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                         
