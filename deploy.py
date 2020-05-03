@@ -36,7 +36,7 @@ class Decantador(threading.Thread):
 
     def run(self):
         while True:
-            if(decantador['solucaototal'] < 500):
+            if(decantador['solucaototal'] == 0):
                 time.sleep(1)
                 
                 pedido = {
@@ -51,7 +51,10 @@ class Decantador(threading.Thread):
                 
             if(decantador['solucaototal'] == 500):
                 while(decantador['solucaototal'] > 0):
+                    atualizaVolumes(pedido['volume'])
+                    
                     time.sleep(5)
+                    
                     glicerina = 100 * 0.02
                     decantador['glicerina'] = decantador['glicerina'] - glicerina
                     
@@ -68,14 +71,13 @@ class Decantador(threading.Thread):
                     
                     decantador['solucaototal'] = decantador['solucaototal'] - 100
 
-                    
                     requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                         
                     requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
                     
                     requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=solucaoLavagem, headers={"Content_Type": "application/json"}).json()
 
-                    atualizaVolumes(pedido['volume'])
+                    
 def create_app():
     global app
     decantadorThread = Decantador()
