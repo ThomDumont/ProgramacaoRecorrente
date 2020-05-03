@@ -76,13 +76,13 @@ class Decantador(threading.Thread):
                     
                     
                     
-#def create_app():
-#    global app
-#    decantadorThread = Decantador()
-#    decantadorThread.start()
-#    return app
+def create_app():
+    global app
+    decantadorThread = Decantador()
+    decantadorThread.start()
+    return app
 
-if __name__ == '__main__':
-   decantadorThread = Decantador()
-   decantadorThread.start()
-   app.run() 
+#if __name__ == '__main__':
+#   decantadorThread = Decantador()
+#   decantadorThread.start()
+#   app.run() 
