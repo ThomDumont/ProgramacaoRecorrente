@@ -67,6 +67,7 @@ class Decantador(threading.Thread):
                     
                     
                     decantador['solucaototal'] = decantador['solucaototal'] - 100
+                    atualizaVolumes(decantador['solucaolavagem'])
                     
                     requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                         
@@ -74,7 +75,7 @@ class Decantador(threading.Thread):
                     
                     requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=requestSolLav, headers={"Content_Type": "application/json"}).json()
                     
-                    atualizaVolumes(solucaoLavagem)
+                    
 def create_app():
     global app
     decantadorThread = Decantador()
