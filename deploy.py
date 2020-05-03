@@ -53,20 +53,20 @@ class Decantador(threading.Thread):
                 while(decantador['solucaototal'] > 0):
                     time.sleep(5)
                     glicerina = 100 * 0.02
-                    decantador['glicerina'] -= glicerina
+                    decantador['glicerina'] = decantador['glicerina'] - glicerina
                     
                     etoh = 100 * 0.08
-                    decantador['etoh'] -= etoh
+                    decantador['etoh'] = decantador['etoh'] - etoh
                     
                     solucaoLavagem = 100 * 0.9
-                    decantador['solucaolavagem'] -= solucaoLavagem
+                    decantador['solucaolavagem'] = decantador['solucaolavagem'] - solucaoLavagem
                     
                     requestEtoh={'etoh': etoh}
                     requestGlicerina = {'glicerina': glicerina}
                     requestSolLav={'solucaolavagem': solucaoLavagem}
                     
                     
-                    decantador['solucaototal'] -= 100
+                    decantador['solucaototal'] = decantador['solucaototal'] - 100
                 
                     requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                         
@@ -74,7 +74,6 @@ class Decantador(threading.Thread):
                     
                     #requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=solucaoLavagem, headers={"Content_Type": "application/json"}).json()
 
-                    return decantador['glicerina'], decantador['etoh'], decantador['solucaolavagem'], decantador['solucaototal']
 def create_app():
     global app
     decantadorThread = Decantador()
