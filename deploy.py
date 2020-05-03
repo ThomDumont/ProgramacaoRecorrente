@@ -72,7 +72,7 @@ class Decantador(threading.Thread):
                         
                     requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
                     
-                    requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=solucaoLavagem, headers={"Content_Type": "application/json"}).json()
+                    requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=requestSolLav, headers={"Content_Type": "application/json"}).json()
                     
                     atualizaVolumes(pedido['volume'])
 def create_app():
