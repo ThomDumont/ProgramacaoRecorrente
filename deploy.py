@@ -40,7 +40,9 @@ class Decantador(threading.Thread):
                 time.sleep(1)
                 
                 pedido = {
+                    
                   "volume": 50
+                  
                   }
                 
                 response = requests.post("https://reator-url.herokuapp.com/reator", json=pedido, headers={"Content_Type": "application/json"}).json()
@@ -54,26 +56,34 @@ class Decantador(threading.Thread):
                     
                     time.sleep(5)
                     
+                    
                     glicerina = 100 * 0.02
                     decantador['glicerina'] -= glicerina
+                    
                     
                     etoh = 100 * 0.08
                     decantador['etoh'] -= etoh
                     
+                    
                     solucaoLavagem = 100 * 0.9
                     decantador['solucaolavagem'] -= solucaoLavagem
                     
-                    requestEtoh={"etoh": etoh}
+                    
+                    requestEtoh={'etoh': etoh}
                     requestGlicerina = {'glicerina': glicerina}
                     requestSolLav={'solucaolavagem': solucaoLavagem}
                     
+                    
                     decantador['solucaototal'] -= 100
+                    
                     
                     requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                     
+                    
                     requests.post("https://tanque-glicerina.herokuapp.com/glicerina",json=requestGlicerina, headers={"Content-Type": "application/json"}).json()
                     
-                    #requests.post("", json=pedido, headers={"Content_Type": "application/json"}).json()
+                    
+                    requests.post("https://sistemas-distribuido.herokuapp.com/", json=pedido, headers={"Content_Type": "application/json"}).json()
                     
 
 def create_app():
@@ -85,4 +95,4 @@ def create_app():
 #if __name__ == '__main__':
 #   decantadorThread = Decantador()
 #   decantadorThread.start()
-#   app.run()
+#   app.run() 
