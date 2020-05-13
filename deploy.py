@@ -50,7 +50,7 @@ class Decantador(threading.Thread):
                 if (response.get('status_code', None) == 200):
                     atualizaVolumes(response['volume'])
                 #atualizaVolumes(pedido['volume'])    
-                
+                print(decantador)
             if(decantador['solucaototal'] == 500):
                 while(decantador['solucaototal'] > 0):
                     time.sleep(5)
