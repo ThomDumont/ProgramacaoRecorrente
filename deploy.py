@@ -15,6 +15,8 @@ decantador = {
     'solucaototal': 0.0
 }
 
+print(decantador)
+
 def atualizaVolumes(volume):
     decantador['glicerina'] += volume * 0.02
     decantador['etoh'] += volume * 0.08 
