@@ -15,7 +15,7 @@ decantador = {
     'solucaototal': 0.0
 }
 
-print(decantador)
+print('Total Recebido :', decantador)
 
 def atualizaVolumes(volume):
     decantador['glicerina'] += volume * 0.02
@@ -69,13 +69,13 @@ class Decantador(threading.Thread):
                     
                     decantador['solucaototal'] = decantador['solucaototal'] - 100
                     
-                    requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=requestSolLav, headers={"Content_Type": "application/json"}).json()
+                    reqLav = requests.post("https://sistemas-distribuido.herokuapp.com/lavagem", json=requestSolLav, headers={"Content_Type": "application/json"}).json()
                     
-                    requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
+                    reqetoh = requests.post("https://concorrente-tanque-etoh.herokuapp.com/",json=requestEtoh, headers={"Content-Type": "application/json"}).json()
                         
-                    req = requests.post("https://tanque-glicerina.herokuapp.com/glicerina", json=requestGlicerina, headers={"Content-Type": "application/json"})
+                    reqGli = requests.post("https://tanque-glicerina.herokuapp.com/glicerina", json=requestGlicerina, headers={"Content-Type": "application/json"})
                     
-                    
+                    print('Envio da Lavagem:',reqLav, 'Envio de EtOH:' , reqetoh, 'Envio de Glicerina:',reqGli)
                     
                     
 def create_app():
